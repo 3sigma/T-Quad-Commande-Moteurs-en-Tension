@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 ##################################################################################
-# Programme d'identification des moteurs du robotu T-Quad, disponible à l'adresse:
+# Programme de commande en tension des moteurs du robot T-Quad,
+# disponible à l'adresse:
 # http://boutique.3sigma.fr/12-robots
 #
 # Auteur: 3Sigma
