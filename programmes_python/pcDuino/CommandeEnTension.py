@@ -1,7 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from pyduino_pcduino import * # importe les fonctions Arduino pour Python
+##################################################################################
+# Programme d'identification des moteurs du robotu T-Quad, disponible à l'adresse:
+# http://boutique.3sigma.fr/12-robots
+#
+# Auteur: 3Sigma
+# Version 1.1.1 - 15/12/2016
+##################################################################################
+
+# Importe les fonctions Arduino pour Python
+from pyduino_pcduino import *
 
 # Imports pour la communication i2c avec l'Arduino Mega
 from mega import Mega
@@ -123,7 +132,8 @@ def CalculVitesse():
         commandeArriereDroit, commandeArriereGauche, commandeAvantDroit, commandeAvantGauche, \
         vrefArriereDroit, vrefArriereGauche, vrefAvantDroit, vrefAvantGauche, \
         codeurArriereDroitDeltaPosPrec, codeurArriereGaucheDeltaPosPrec, codeurAvantDroitDeltaPosPrec, codeurAvantGaucheDeltaPosPrec, \
-        idecimLectureTension, decimLectureTension, decimErreurLectureTension, tensionAlim
+        idecimLectureTension, decimLectureTension, decimErreurLectureTension, tensionAlim, \
+        typeSignal, offset, amplitude, frequence, moteur1, moteur2, moteur3, moteur4
     
     tdebut = time.time()
         
@@ -158,6 +168,28 @@ def CalculVitesse():
     omegaAvantDroit = -2 * ((2 * 3.141592 * codeurAvantDroitDeltaPos) / 1200) / (Nmoy * dt)  # en rad/s
     omegaAvantGauche = 2 * ((2 * 3.141592 * codeurAvantGaucheDeltaPos) / 1200) / (Nmoy * dt)  # en rad/s
     
+    tcourant = time.time() - T0
+    # Calcul de la consigne en fonction des données reçues sur la liaison série
+    if typeSignal == 0: # signal carré
+        if frequence > 0:
+            if (tcourant - (float(int(tcourant*frequence)))/frequence < 1/(2*frequence)):
+                vref = offset + amplitude
+            else:
+                vref = offset
+        else:
+            vref = offset + amplitude
+    else: # sinus
+        if frequence > 0:
+            vref = offset + amplitude * sin(2*3.141592*frequence*tcourant)
+        else:
+            vref = offset + amplitude
+
+    # Application de la consigne sur chaque moteur
+    vrefArriereDroit = moteur1 * vref
+    vrefArriereGauche = moteur2 * vref
+    vrefAvantDroit = moteur3 * vref
+    vrefAvantGauche = moteur4 * vref
+
     # Calcul de la commande avant saturation
     # Si on n'a pas reçu de données depuis un certain temps, celles-ci sont annulées
     if (time.time()-timeLastReceived) > timeout and not timedOut:
@@ -290,7 +322,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
 
     def on_message(self, message):
         global vref, vrefArriereDroit, vrefArriereGauche, vrefAvantDroit, vrefAvantGauche, typeSignal, offset, amplitude, frequence, \
-        Kp, Ki, Kd, moteur1, moteur2, moteur3, moteur4, timeLastReceived, timedOut
+        moteur1, moteur2, moteur3, moteur4, timeLastReceived, timedOut
         
         jsonMessage = json.loads(message)
         
@@ -307,41 +339,20 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         if jsonMessage.get('frequence') != None:
             frequence = float(jsonMessage.get('frequence'))
         if jsonMessage.get('moteur1') != None:
-            moteur1 = int(jsonMessage.get('moteur1'))
+            moteur1 = float(jsonMessage.get('moteur1'))
         if jsonMessage.get('moteur2') != None:
-            moteur2 = int(jsonMessage.get('moteur2'))
+            moteur2 = float(jsonMessage.get('moteur2'))
         if jsonMessage.get('moteur3') != None:
-            moteur3 = int(jsonMessage.get('moteur3'))
+            moteur3 = float(jsonMessage.get('moteur3'))
         if jsonMessage.get('moteur4') != None:
-            moteur4 = int(jsonMessage.get('moteur4'))
+            moteur4 = float(jsonMessage.get('moteur4'))
         
-        tcourant = time.time() - T0
-        # Calcul de la consigne en fonction des données reçues sur la liaison série
-        if typeSignal == 0: # signal carré
-            if frequence > 0:
-                if (tcourant - (float(int(tcourant*frequence)))/frequence < 1/(2*frequence)):
-                    vref = offset + amplitude
-                else:
-                    vref = offset
-            else:
-                vref = offset + amplitude
-        else: # sinus
-            if frequence > 0:
-                vref = offset + amplitude * sin(2*3.141592*frequence*tcourant)
-            else:
-                vref = offset + amplitude
-
-        # Application de la consigne sur chaque moteur
-        vrefArriereDroit = float(moteur1) * vref
-        vrefArriereGauche = float(moteur2) * vref
-        vrefAvantDroit = float(moteur3) * vref
-        vrefAvantGauche = float(moteur4) * vref
             
         if not socketOK:
-            vrefArriereDroit = 0.
-            vrefArriereGauche = 0.
-            vrefAvantDroit = 0.
-            vrefAvantGauche = 0.
+            typeSignal = 0
+            offset = 0.
+            amplitude = 0.
+            frequence = 0.
 
 
     def on_close(self):
