@@ -4,6 +4,7 @@
 	"plugins": [],
 	"panes": [
 		{
+			"title": "Télémétrie",
 			"width": 1,
 			"row": {
 				"2": 9,
@@ -25,7 +26,7 @@
 						"title": "Tension et vitesses",
 						"xaxis": "datasource_column",
 						"time": "datasources[\"ws\"][\"Temps\"]",
-						"time_window": 10,
+						"time_window": "4",
 						"value": [
 							"datasources[\"ws\"][\"Consigne\"]",
 							"datasources[\"ws\"][\"omegaArriereDroit\"]",
@@ -144,7 +145,7 @@
 			]
 		},
 		{
-			"title": "Choix des moteurs",
+			"title": "Pilotage des moteurs",
 			"width": 1,
 			"row": {
 				"3": 11,
@@ -159,47 +160,59 @@
 			"col_width": 1,
 			"widgets": [
 				{
-					"type": "switchbutton",
+					"type": "slider",
 					"settings": {
 						"title": "Moteur arrière droit",
 						"datasourcename": "ws",
 						"variable": "datasources[\"ws\"][\"moteur1\"]",
-						"yestext": "ON",
-						"notext": "OFF",
-						"initialstate": false
+						"initialvalue": 0,
+						"min": -1,
+						"max": 1,
+						"resolution": 2,
+						"resetvalue": 0,
+						"resetcaption": "Réinitialisation"
 					}
 				},
 				{
-					"type": "switchbutton",
+					"type": "slider",
 					"settings": {
 						"title": "Moteur arrière gauche",
 						"datasourcename": "ws",
 						"variable": "datasources[\"ws\"][\"moteur2\"]",
-						"yestext": "ON",
-						"notext": "OFF",
-						"initialstate": false
+						"initialvalue": 0,
+						"min": -1,
+						"max": 1,
+						"resolution": 2,
+						"resetvalue": 0,
+						"resetcaption": "Réinitialisation"
 					}
 				},
 				{
-					"type": "switchbutton",
+					"type": "slider",
 					"settings": {
 						"title": "Moteur avant droit",
 						"datasourcename": "ws",
 						"variable": "datasources[\"ws\"][\"moteur3\"]",
-						"yestext": "ON",
-						"notext": "OFF",
-						"initialstate": false
+						"initialvalue": 0,
+						"min": -1,
+						"max": 1,
+						"resolution": 2,
+						"resetvalue": 0,
+						"resetcaption": "Réinitialisation"
 					}
 				},
 				{
-					"type": "switchbutton",
+					"type": "slider",
 					"settings": {
 						"title": "Moteur avant gauche",
 						"datasourcename": "ws",
 						"variable": "datasources[\"ws\"][\"moteur4\"]",
-						"yestext": "ON",
-						"notext": "OFF",
-						"initialstate": false
+						"initialvalue": 0,
+						"min": -1,
+						"max": 1,
+						"resolution": 2,
+						"resetvalue": 0,
+						"resetcaption": "Réinitialisation"
 					}
 				}
 			]
