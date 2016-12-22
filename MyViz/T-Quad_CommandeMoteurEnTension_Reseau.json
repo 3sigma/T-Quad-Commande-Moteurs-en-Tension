@@ -37,7 +37,8 @@
 						"y_axis_min_range": "-1,1",
 						"include_legend": true,
 						"legendStr": "V,omega arrière droit, omega arrière gauche, omega avant droit, omega avant gauche",
-						"height": 4
+						"height": 4,
+						"pausable": true
 					}
 				}
 			]
