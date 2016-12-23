@@ -131,7 +131,7 @@ def CalculVitesse():
     global omegaArriereDroit, omegaArriereGauche, omegaAvantDroit, omegaAvantGauche, timeLastReceived, timeout, timedOut, \
         tdebut, codeurArriereDroitDeltaPos, codeurArriereGaucheDeltaPos, codeurAvantDroitDeltaPos, codeurAvantGaucheDeltaPos, \
         commandeArriereDroit, commandeArriereGauche, commandeAvantDroit, commandeAvantGauche, \
-        vrefArriereDroit, vrefArriereGauche, vrefAvantDroit, vrefAvantGauche, \
+        vrefArriereDroit, vrefArriereGauche, vrefAvantDroit, vrefAvantGauche, vref, \
         codeurArriereDroitDeltaPosPrec, codeurArriereGaucheDeltaPosPrec, codeurAvantDroitDeltaPosPrec, codeurAvantGaucheDeltaPosPrec, \
         idecimLectureTension, decimLectureTension, decimErreurLectureTension, tensionAlim, \
         typeSignal, offset, amplitude, frequence, moteur1, moteur2, moteur3, moteur4
@@ -366,7 +366,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         vrefAvantGauche = 0.
 
     def sendToSocket(self):
-        global omegaArriereDroit, omegaArriereGauche, omegaAvantDroit, omegaAvantGauche, \
+        global omegaArriereDroit, omegaArriereGauche, omegaAvantDroit, omegaAvantGauche, vref, \
         socketOK, commandeArriereDroit, commandeArriereGauche, commandeAvantDroit, commandeAvantGauche
         
         tcourant = time.time() - T0
