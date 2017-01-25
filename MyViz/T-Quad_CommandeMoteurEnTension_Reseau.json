@@ -91,7 +91,6 @@
 					"type": "switchbutton",
 					"settings": {
 						"title": "Type de signal (carré ou sinus)",
-						"datasourcename": "ws",
 						"variable": "datasources[\"ws\"][\"typeSignal\"]",
 						"yestext": "Sinus",
 						"notext": "Carré",
@@ -102,7 +101,6 @@
 					"type": "slider",
 					"settings": {
 						"title": "Offset",
-						"datasourcename": "ws",
 						"variable": "datasources[\"ws\"][\"offset\"]",
 						"formula": "x",
 						"initialvalue": 0,
@@ -117,7 +115,6 @@
 					"type": "slider",
 					"settings": {
 						"title": "Amplitude",
-						"datasourcename": "ws",
 						"variable": "datasources[\"ws\"][\"amplitude\"]",
 						"formula": "x",
 						"initialvalue": 0,
@@ -132,7 +129,6 @@
 					"type": "slider",
 					"settings": {
 						"title": "Fréquence",
-						"datasourcename": "ws",
 						"variable": "datasources[\"ws\"][\"frequence\"]",
 						"formula": "x",
 						"initialvalue": 0,
@@ -164,7 +160,6 @@
 					"type": "slider",
 					"settings": {
 						"title": "Moteur arrière droit",
-						"datasourcename": "ws",
 						"variable": "datasources[\"ws\"][\"moteur1\"]",
 						"initialvalue": 0,
 						"min": -1,
@@ -178,7 +173,6 @@
 					"type": "slider",
 					"settings": {
 						"title": "Moteur arrière gauche",
-						"datasourcename": "ws",
 						"variable": "datasources[\"ws\"][\"moteur2\"]",
 						"initialvalue": 0,
 						"min": -1,
@@ -192,7 +186,6 @@
 					"type": "slider",
 					"settings": {
 						"title": "Moteur avant droit",
-						"datasourcename": "ws",
 						"variable": "datasources[\"ws\"][\"moteur3\"]",
 						"initialvalue": 0,
 						"min": -1,
@@ -206,7 +199,6 @@
 					"type": "slider",
 					"settings": {
 						"title": "Moteur avant gauche",
-						"datasourcename": "ws",
 						"variable": "datasources[\"ws\"][\"moteur4\"]",
 						"initialvalue": 0,
 						"min": -1,
