@@ -15,7 +15,7 @@
 			"col": {
 				"2": 2,
 				"3": 2,
-				"4": 3,
+				"4": 2,
 				"5": 3
 			},
 			"col_width": "2",
@@ -48,11 +48,13 @@
 			"width": 1,
 			"row": {
 				"3": 1,
-				"4": 1
+				"4": 1,
+				"5": 1
 			},
 			"col": {
 				"3": 1,
-				"4": 1
+				"4": 1,
+				"5": 1
 			},
 			"col_width": 1,
 			"widgets": [
@@ -77,12 +79,12 @@
 			"width": 1,
 			"row": {
 				"3": 5,
-				"4": 1,
+				"4": 5,
 				"5": 9
 			},
 			"col": {
 				"3": 1,
-				"4": 2,
+				"4": 1,
 				"5": 1
 			},
 			"col_width": 1,
@@ -93,14 +95,16 @@
 						"title": "Type de signal (carré ou sinus)",
 						"variable": "datasources[\"ws\"][\"typeSignal\"]",
 						"yestext": "Sinus",
+						"yesvalue": "1",
 						"notext": "Carré",
+						"novalue": "0",
 						"initialstate": false
 					}
 				},
 				{
 					"type": "slider",
 					"settings": {
-						"title": "Offset",
+						"title": "Offset (V)",
 						"variable": "datasources[\"ws\"][\"offset\"]",
 						"formula": "x",
 						"initialvalue": 0,
@@ -108,13 +112,13 @@
 						"max": 6,
 						"resolution": 1,
 						"resetvalue": 0,
-						"resetcaption": "Reset"
+						"resetcaption": "Réinitialisation"
 					}
 				},
 				{
 					"type": "slider",
 					"settings": {
-						"title": "Amplitude",
+						"title": "Amplitude (V)",
 						"variable": "datasources[\"ws\"][\"amplitude\"]",
 						"formula": "x",
 						"initialvalue": 0,
@@ -122,13 +126,13 @@
 						"max": 6,
 						"resolution": 1,
 						"resetvalue": 0,
-						"resetcaption": "Reset"
+						"resetcaption": "Réinitialisation"
 					}
 				},
 				{
 					"type": "slider",
 					"settings": {
-						"title": "Fréquence",
+						"title": "Fréquence (Hz)",
 						"variable": "datasources[\"ws\"][\"frequence\"]",
 						"formula": "x",
 						"initialvalue": 0,
@@ -136,7 +140,64 @@
 						"max": 1,
 						"resolution": 2,
 						"resetvalue": 0,
-						"resetcaption": "Reset"
+						"resetcaption": "Réinitialisation"
+					}
+				}
+			]
+		},
+		{
+			"title": "Vitesses moteurs",
+			"width": 1,
+			"row": {
+				"3": 11,
+				"4": 11,
+				"5": 9
+			},
+			"col": {
+				"3": 3,
+				"4": 3,
+				"5": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Vitesse moteur arrière droit",
+						"size": "regular",
+						"value": "datasources[\"ws\"][\"omegaArriereDroit\"]",
+						"animate": false,
+						"units": "rad/s"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Vitesse moteur arrière gauche",
+						"size": "regular",
+						"value": "datasources[\"ws\"][\"omegaArriereGauche\"]",
+						"animate": false,
+						"units": "rad/s"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Vitesse moteur avant droit",
+						"size": "regular",
+						"value": "datasources[\"ws\"][\"omegaAvantDroit\"]",
+						"animate": false,
+						"units": "rad/s"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Vitesse moteur avant gauche",
+						"size": "regular",
+						"value": "datasources[\"ws\"][\"omegaAvantGauche\"]",
+						"animate": false,
+						"units": "rad/s"
 					}
 				}
 			]
@@ -211,72 +272,17 @@
 			]
 		},
 		{
-			"title": "Vitesses moteurs",
-			"width": 1,
-			"row": {
-				"3": 11,
-				"4": 9,
-				"5": 9
-			},
-			"col": {
-				"3": 3,
-				"4": 4,
-				"5": 3
-			},
-			"col_width": 1,
-			"widgets": [
-				{
-					"type": "text_widget",
-					"settings": {
-						"title": "Vitesse moteur arrière droit",
-						"size": "regular",
-						"value": "datasources[\"ws\"][\"omegaArriereDroit\"]",
-						"animate": false,
-						"units": "rad/s"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"title": "Vitesse moteur arrière gauche",
-						"size": "regular",
-						"value": "datasources[\"ws\"][\"omegaArriereGauche\"]",
-						"animate": false,
-						"units": "rad/s"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"title": "Vitesse moteur avant droit",
-						"size": "regular",
-						"value": "datasources[\"ws\"][\"omegaAvantDroit\"]",
-						"animate": false,
-						"units": "rad/s"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"title": "Vitesse moteur avant gauche",
-						"size": "regular",
-						"value": "datasources[\"ws\"][\"omegaAvantGauche\"]",
-						"animate": false,
-						"units": "rad/s"
-					}
-				}
-			]
-		},
-		{
 			"title": "Moniteur série",
 			"width": 1,
 			"row": {
 				"3": 21,
-				"4": 23
+				"4": 21,
+				"5": 23
 			},
 			"col": {
 				"3": 1,
-				"4": 1
+				"4": 1,
+				"5": 1
 			},
 			"col_width": "1",
 			"widgets": [
@@ -304,5 +310,5 @@
 			}
 		}
 	],
-	"columns": 3
+	"columns": 4
 }
